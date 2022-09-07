@@ -1,27 +1,6 @@
 <div class="container">
 
-  <div class="header">
-    <h1>Конвертер валют</h1>
-    <ul>
-      <li><span>USD</span>  {{usd}}</li>
-      <li><span>EUR</span>  {{eur}}</li>
-    </ul>
-  </div>
-
-  <div>
-    <input type="number" value="{{fromAmount}}" (change)="onChangeToAmount($event)">
-    <select [(ngModel)]="fromCurrency" (change)="changeFromCurrency($event)">
-      <option *ngFor="let currency of currencies" value="{{currency}}">{{currency}}</option>
-    </select>
-  </div>
-
-  <p class="equal">=</p>
-
-  <div>
-    <input type="number" value="{{toAmount}}" (change)="onChangeFromAmount($event)">
-    <select [(ngModel)]="toCurrency" (change)="changeToCurrency($event)">
-      <option *ngFor="let currency of currencies" value="{{currency}}">{{currency}}</option>
-    </select>
-  </div>
+  <app-header></app-header>
+  <app-form></app-form>
 
 </div>
