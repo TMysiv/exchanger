@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {ExchangerCurrencyService} from "../../exchanger-currency.service";
 import {FormControl, FormGroup} from "@angular/forms";
 
@@ -7,7 +7,7 @@ import {FormControl, FormGroup} from "@angular/forms";
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit,AfterViewInit  {
 
   currencies:string[] = [];
   fromCurrency:string = '';
@@ -39,6 +39,7 @@ export class FormComponent implements OnInit {
 
       this.exchangeRate = value.rates[firstCurrency]
     });
+
   }
 
   exchangerCurrency(){
@@ -58,32 +59,35 @@ export class FormComponent implements OnInit {
     })
   }
 
-  changeFromCurrency(e: any) {
-    this.fromCurrency = e.target.value;
-    this.exchangeSomeCurrency()
-  }
-
-  changeToCurrency(e: any) {
-    this.toCurrency = e.target.value;
-    this.exchangeSomeCurrency()
-  }
-
-  onChangeToAmount(e: any) {
-    this.amount = e.target.value;
-    this.amountFromCurrency = true;
-    this.exchangerCurrency()
-  }
-
-  onChangeFromAmount(e: any) {
-    this.amount = e.target.value;
-    this.amountFromCurrency = false;
-    this.exchangerCurrency()
-  }
-
   createForm():void {
     this.form = new FormGroup({
-      currency1 : new FormControl(1),
-      currency2 : new FormControl(1),
+      inputFromAmount : new FormControl(),
+      inputToAmount : new FormControl(),
+      selectFromAmount: new FormControl('EUR'),
+      selectToAmount:new FormControl('AUD')
+    })
+  }
+
+  ngAfterViewInit(): void {
+   this.form.get('inputFromAmount')?.valueChanges.subscribe(data => {
+     this.amount = data;
+     this.amountFromCurrency = true;
+     this.exchangerCurrency()
+   })
+    this.form.get('inputToAmount')?.valueChanges.subscribe(data => {
+      this.amount = data
+      this.amountFromCurrency = false;
+      this.exchangerCurrency()
+    })
+
+    this.form.get('selectFromAmount')?.valueChanges.subscribe(data =>{
+      this.fromCurrency = data
+      this.exchangeSomeCurrency()
+    })
+
+    this.form.get('selectToAmount')?.valueChanges.subscribe(data =>{
+      this.toCurrency = data
+      this.exchangeSomeCurrency()
     })
   }
 
