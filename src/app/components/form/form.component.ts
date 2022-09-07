@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {ExchangerCurrencyService} from "../../exchanger-currency.service";
+import {ExchangerCurrencyService} from "../../services/exchanger-currency.service";
 import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({

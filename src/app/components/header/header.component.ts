@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ExchangerCurrencyService} from "../../exchanger-currency.service";
+import {ExchangerCurrencyService} from "../../services/exchanger-currency.service";
 
 @Component({
   selector: 'app-header',
